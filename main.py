@@ -18,7 +18,7 @@ async def on_startup(_):
 
 async def on_shutdown(_):
     await bot.delete_webhook()
-    await bot.send_message(chat_id=settings.ADMIN_ID, text='Бот остановлен')
+    await bot.send_message(chat_id=settings.ADMIN_ID, text='Бот остановлен, например')
 
 
 basic.register_handler_basic(dp)
