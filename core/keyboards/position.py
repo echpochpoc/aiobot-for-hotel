@@ -1,4 +1,4 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from aiogram.types import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton
 
 position_kb = ReplyKeyboardMarkup(
     keyboard=[
@@ -10,7 +10,27 @@ position_kb = ReplyKeyboardMarkup(
         [
             KeyboardButton(text='Монтер'),
             KeyboardButton(text='Кладовщик'),
+        ],
+        [
+            KeyboardButton(text='/cancel')
+        ],
+        [
+            KeyboardButton(text='❌Назад')
         ]
     ],
-    resize_keyboard=True, one_time_keyboard=True
+    resize_keyboard=True
 )
+
+cancel_kb = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text='/cancel')
+        ],
+        [
+            KeyboardButton(text='❌Назад')
+        ]
+    ],
+    resize_keyboard=True
+)
+
+delete_kb = ReplyKeyboardRemove()
