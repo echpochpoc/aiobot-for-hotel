@@ -10,12 +10,6 @@ position_kb = ReplyKeyboardMarkup(
         [
             KeyboardButton(text='Монтер'),
             KeyboardButton(text='Кладовщик'),
-        ],
-        [
-            KeyboardButton(text='/cancel')
-        ],
-        [
-            KeyboardButton(text='❌Назад')
         ]
     ],
     resize_keyboard=True
@@ -25,12 +19,14 @@ cancel_kb = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(text='/cancel')
-        ],
-        [
-            KeyboardButton(text='❌Назад')
         ]
     ],
     resize_keyboard=True
 )
+
+
+cancel_btn = KeyboardButton('/cancel')
+back_btn = KeyboardButton('❌Назад')
+
 
 delete_kb = ReplyKeyboardRemove()

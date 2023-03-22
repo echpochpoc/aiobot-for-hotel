@@ -10,7 +10,7 @@ async def set_commands(bot: Bot):
         ),
         BotCommand(
             command='create',
-            description='Создать напоминание'
+            description='Создать задание'
         ),
     ]
 

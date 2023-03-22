@@ -4,7 +4,7 @@ from aiogram.utils import executor
 from core import settings
 from core.utils import commands
 from core.my_bot import bot, dp
-from core.handlers import basic, reminders
+from core.handlers import basic, tasks
 
 
 async def on_startup(_):
@@ -21,7 +21,7 @@ async def on_shutdown(_):
     await bot.send_message(chat_id=settings.ADMIN_ID, text='Бот остановлен, например')
 
 
-reminders.register_handler_reminders(dp)
+tasks.register_handler_reminders(dp)
 basic.register_handler_basic(dp)
 
 
