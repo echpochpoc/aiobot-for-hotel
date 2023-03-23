@@ -4,7 +4,7 @@ from aiogram.utils import executor
 from core import settings
 from core.utils import commands
 from core.my_bot import bot, dp
-from core.handlers import basic, tasks
+from core.handlers import basic, tasks, registration
 
 
 async def on_startup(_):
@@ -20,8 +20,8 @@ async def on_shutdown(_):
     await bot.delete_webhook()
     await bot.send_message(chat_id=settings.ADMIN_ID, text='Бот остановлен, например')
 
-
-tasks.register_handler_reminders(dp)
+registration.register_handler_registration(dp)
+tasks.register_handler_tasks(dp)
 basic.register_handler_basic(dp)
 
 
