@@ -6,6 +6,21 @@ from core.utils import commands
 from core.my_bot import bot, dp
 from core.handlers import basic, tasks, registration
 
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+from db.base import DBSession
+from db.models.base import Base
+
+
+engine = create_engine(f'postgresql+psycopg2://{settings.DATABASE_USER}:{settings.DATABASE_PASSWORD}'
+                       f'@{settings.DATABASE_HOST}:{settings.DATABASE_PORT}/{settings.DATABASE_NAME}',
+                       echo=True)
+
+Base.metadata.create_all(engine)
+session_factory = sessionmaker(bind=engine)
+db_session = DBSession(session_factory())
+
 
 async def on_startup(_):
     await bot.set_webhook(settings.URL_DOMAIN)
