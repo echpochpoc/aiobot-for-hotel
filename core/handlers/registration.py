@@ -1,4 +1,3 @@
-import core.my_bot
 import db.queries.test
 from core.my_bot import bot
 from aiogram import types, Dispatcher
@@ -6,6 +5,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import StatesGroup, State
 
 from core.keyboards import position_kb, cancel_kb, delete_kb
+from db.models.users import User
 
 
 class Registration(StatesGroup):
@@ -47,13 +47,12 @@ async def load_fullname(message: types.Message, state: FSMContext):
         await Registration.photo.set()
     else:
         fullname = message.text.strip().split()
-        print(fullname)
         if len(fullname) < 2 or len(fullname) > 3:
             await message.reply('Попробуйте снова!')
         else:
             await message.answer('Выберете вашу должность', reply_markup=position_kb)
             async with state.proxy() as data:
-                data['fullname'] = message.text
+                data['fullname'] = message.text.title()
             await Registration.next()
 
 
@@ -79,12 +78,18 @@ async def load_description(message: types.Message, state: FSMContext):
     else:
         async with state.proxy() as data:
             data['description'] = message.text
-        await message.answer('Регистрация завершена!', reply_markup=delete_kb)
+        new_user = User(
+            #post=data['description'],
+            full_name=data['fullname'],
+            telegram_id=message.from_user.id,
+        )
+        db.queries.registration.add_new_user(new_user)
         await bot.send_photo(chat_id=message.from_user.id,
                              photo=data['photo'],
-                             caption=f"{data['fullname']}\n"
-                                     f"{data['position']}\n\n"
-                                     f"{data['description']}")
+                             caption=f"ФИО: {data['fullname']}\n"
+                                     f"Должность: {data['position']}\n"
+                                     f"Описание: {data['description']}")
+        await message.answer('Регистрация завершена!', reply_markup=delete_kb)
         await state.finish()
 
 
