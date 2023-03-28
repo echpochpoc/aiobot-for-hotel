@@ -1,3 +1,5 @@
+import core.my_bot
+import db.queries.test
 from core.my_bot import bot
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
@@ -16,7 +18,9 @@ class Registration(StatesGroup):
 async def start_registration(message: types.Message):
     await message.reply('Вы начали процесс регистрации\n'
                         'Загрузите фото.', reply_markup=cancel_kb)
+
     await Registration.photo.set()
+    db.queries.test.test_add_post()
 
 
 async def cancel_registration(message: types.Message, state: FSMContext):

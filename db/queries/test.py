@@ -1,16 +1,12 @@
-
-import db.my_db
+from core.my_bot import session_factory
 from db.models import Post
 
 
 def test_add_post():
-    session = db.my_db.db_session()
+    session = session_factory()
     c1 = Post(
-    title='Уборшик',
-    description='Убирается, а что он еще должен делать?',
+    title='Повар',
+    description='Готовит, а что еще он должен делать?',
     )
     session.add(c1)
     session.commit()
-
-def ddd():
-    print('хуй')
