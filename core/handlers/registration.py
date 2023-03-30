@@ -1,11 +1,11 @@
-import db.queries.test
+import db.queries
 from core.my_bot import bot
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import StatesGroup, State
 
 from core.keyboards import position_kb, cancel_kb, delete_kb
-from db.models.users import User
+from db.models import User
 
 
 class Registration(StatesGroup):
@@ -20,7 +20,7 @@ async def start_registration(message: types.Message):
                         'Загрузите фото.', reply_markup=cancel_kb)
 
     await Registration.photo.set()
-    db.queries.test.test_add_post()
+    db.queries.test_add_post()
 
 
 async def cancel_registration(message: types.Message, state: FSMContext):
@@ -83,7 +83,7 @@ async def load_description(message: types.Message, state: FSMContext):
             full_name=data['fullname'],
             telegram_id=message.from_user.id,
         )
-        db.queries.registration.add_new_user(new_user)
+        db.queries.add_new_user(new_user)
         await bot.send_photo(chat_id=message.from_user.id,
                              photo=data['photo'],
                              caption=f"ФИО: {data['fullname']}\n"

@@ -1,9 +1,11 @@
+import db.queries
 from core.my_bot import bot
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import StatesGroup, State
 
 from core.keyboards import position_kb, cancel_kb, delete_kb
+from db.models import Task
 
 
 class CreateTask(StatesGroup):
@@ -83,6 +85,12 @@ async def load_worker(message: types.Message, state: FSMContext):
         else:
             async with state.proxy() as data:
                 data['worker'] = message.text
+            new_task = Task(
+                title=data['title'],
+                photo=data['photo'],
+                description=data['description']
+            )
+            db.queries.create_new_task(new_task)
             await message.answer('Задача создана!', reply_markup=delete_kb)
             await bot.send_photo(chat_id=message.from_user.id,
                                  photo=data['photo'],
