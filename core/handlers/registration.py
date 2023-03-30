@@ -43,7 +43,6 @@ async def load_fullname(message: types.Message, state: FSMContext):
         await Registration.photo.set()
     else:
         fullname = message.text.strip().split()
-        print(fullname)
         if len(fullname) < 2 or len(fullname) > 3:
             await message.reply('Попробуйте снова!')
         else:
