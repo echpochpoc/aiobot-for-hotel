@@ -1,19 +1,20 @@
 from aiogram import Bot
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from aiogram.dispatcher import Dispatcher
-
+from aiogram import Dispatcher
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from db.models.base import Base
-from core import settings
+
+from core import BOT_TOKEN
+from core import DATABASE_USER, DATABASE_PASSWORD, DATABASE_HOST, DATABASE_PORT, DATABASE_NAME
 
 storage = MemoryStorage()
-bot = Bot(settings.BOT_TOKEN)
+bot = Bot(BOT_TOKEN)
 dp = Dispatcher(bot, storage=storage)
 
-engine = create_engine(f'postgresql+psycopg2://{settings.DATABASE_USER}:{settings.DATABASE_PASSWORD}'
-                       f'@{settings.DATABASE_HOST}:{settings.DATABASE_PORT}/{settings.DATABASE_NAME}')
+engine = create_engine(f'postgresql+psycopg2://{DATABASE_USER}:{DATABASE_PASSWORD}'
+                       f'@{DATABASE_HOST}:{DATABASE_PORT}/{DATABASE_NAME}')
 
 Base.metadata.create_all(engine)
 session_factory = sessionmaker(bind=engine)

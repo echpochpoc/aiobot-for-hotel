@@ -1,12 +1,18 @@
-BOT_TOKEN = 'Token'
-ADMIN_ID = 1 #Ваш id от телеги
-URL_DOMAIN = 'Url ngrok'
-URL_PATH = ''
-SERVER_HOST = '0.0.0.0'
-SERVER_PORT = 5000
+import os
+from dotenv import load_dotenv
 
-DATABASE_USER = 'postgres'
-DATABASE_PASSWORD = 'password'
-DATABASE_HOST = 'localhost'
-DATABASE_PORT = '5432'
-DATABASE_NAME = 'db_name'
+load_dotenv()
+
+BOT_TOKEN = (os.getenv('BOT_TOKEN'))
+ADMIN_ID = (os.getenv('ADMIN_ID'))
+
+URL_DOMAIN = (os.getenv('URL_DOMAIN'))
+URL_PATH = (os.getenv('URL_PATH'))
+SERVER_HOST = (os.getenv('SERVER_HOST'))
+SERVER_PORT = (os.getenv('SERVER_PORT'))
+
+DATABASE_USER = (os.getenv('DATABASE_USER'))
+DATABASE_PASSWORD = (os.getenv('DATABASE_PASSWORD'))
+DATABASE_HOST = (os.getenv('DATABASE_HOST'))
+DATABASE_PORT = (os.getenv('DATABASE_PORT'))
+DATABASE_NAME = (os.getenv('DATABASE_NAME'))
